@@ -36,7 +36,7 @@ public class StringCalculator {
                         negativeString += ("," + number);
                     }
                 } else {
-                    sum += givenNumber;
+                    sum += givenNumber < 1000 ? givenNumber : 0;
                 }
             }
         }
