@@ -21,7 +21,9 @@ public class StringCalculator {
     public static int getSum(List<String> numbersList) {
         int sum = 0;
         for (String number: numbersList) {
-            sum += Integer.parseInt(number);
+            if (number.length() != 0) {
+                sum += Integer.parseInt(number);
+            }
         }
         return sum;
     }
