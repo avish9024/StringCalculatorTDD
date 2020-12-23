@@ -12,11 +12,11 @@ public class StringCalculator {
         if (numbers.contains("\n")) {
             String delimiter = ",";
             if(numbers.matches("//(.*)\n(.*)")){
-                delimiter = Character.toString(numbers.charAt(2));
-                numbers = numbers.substring(4);
+                delimiter = numbers.substring(2, numbers.indexOf("\n"));
+                numbers = numbers.substring(2 + delimiter.length());
             }
             List<String> stringListWithoutNewLineAndComma = Arrays
-                    .asList(numbers.replaceAll("\n", ",").split(delimiter));
+                    .asList(numbers.split(delimiter  + "|\n"));
             return getSum(stringListWithoutNewLineAndComma);
         }
         List<String> numbersList = Arrays.asList(numbers.split(","));
@@ -44,5 +44,9 @@ public class StringCalculator {
             throw new IllegalArgumentException("Negative numbers are not allowed: " + negativeString);
         }
         return sum;
+    }
+
+    private String getDelimiter(String givenString) {
+        return null;
     }
 }
