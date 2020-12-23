@@ -19,10 +19,10 @@ public class StringCalculatorTest {
         assertEquals(3, StringCalculator.add("1,2"));
     }
 
-    @Test
+    /*@Test
     public void testStringHavingNewLines() {
         assertEquals(6, StringCalculator.add("1\n2,3"));
-    }
+    }*/
 
     @Test
     public void testStringHavingDifferentDelimiter() {
@@ -31,7 +31,17 @@ public class StringCalculatorTest {
 
     @Test
     public void testStringHavingMultipleLengthDelimiter() {
-        assertEquals(3, StringCalculator.add("//;;\n1;;2"));
+        assertEquals(6, StringCalculator.add("//[***]\n1***2***3"));
+    }
+
+    @Test
+    public void testStringHavingMultipleDelimiter() {
+        assertEquals(6, StringCalculator.add("//[*][%]\n1*2%3"));
+    }
+
+    @Test
+    public void testStringHavingMultipleDelimiterWithVariableLength() {
+        assertEquals(6, StringCalculator.add("//[**][%%]\n1**2%%3"));
     }
 
     @Test

@@ -1,7 +1,10 @@
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class StringCalculator {
+
+    public static final List<String> RESERVED_CHARACTERS = new ArrayList<>(Arrays.asList("*", ".", "[", "{", "(", "+", "?", "^", "$", "|"));
+    private static final String DEFAULT_DELIMITER = ",";
+
     public static int add(String numbers) {
         if(numbers.length() == 0){
             return 0;
@@ -10,20 +13,22 @@ public class StringCalculator {
             return Integer.parseInt(numbers);
         }
         if (numbers.contains("\n")) {
-            String delimiter = ",";
-            if(numbers.matches("//(.*)\n(.*)")){
-                delimiter = numbers.substring(2, numbers.indexOf("\n"));
+            /*if(numbers.matches("//(.*)\n(.*)")){
+                delimiter = getDelimiter(numbers);
+                System.out.println(delimiter);
                 numbers = numbers.substring(2 + delimiter.length());
-            }
-            List<String> stringListWithoutNewLineAndComma = Arrays
-                    .asList(numbers.split(delimiter  + "|\n"));
-            return getSum(stringListWithoutNewLineAndComma);
+            }*/
+            List<String> parsedNumberString = getParsedString(numbers);
+           /* List<String> stringListWithoutNewLineAndComma = Arrays
+                    .asList(parsedNumberString.split(DEFAULT_DELIMITER  + "|\n"));*/
+            return getSum(parsedNumberString);
         }
         List<String> numbersList = Arrays.asList(numbers.split(","));
         return getSum(numbersList);
     }
 
     public static int getSum(List<String> numbersList) {
+        System.out.println(numbersList);
         int sum = 0;
         String negativeString = "";
         for (String number: numbersList) {
@@ -46,7 +51,50 @@ public class StringCalculator {
         return sum;
     }
 
-    private String getDelimiter(String givenString) {
-        return null;
+    private static List<String> getParsedString(String givenString) {
+        String delimiterPart;
+        String numberPart = "";
+        Set<String> delimiters = new HashSet<>();
+        System.out.println(givenString);
+        int index = givenString.lastIndexOf("]");
+        System.out.println(index);
+        if (index < 0) {
+            int onlyDelimiterIndex = givenString.indexOf("//");
+            if(onlyDelimiterIndex == 0) {
+                delimiterPart = givenString.substring(2, 3);
+                delimiters = new HashSet<>(Arrays.asList(delimiterPart));
+                numberPart = givenString.substring(4);
+            }
+        } else {
+            delimiterPart = givenString.substring(2, index + 1);
+            System.out.println(delimiterPart);
+            boolean closingBrace = false;
+            String eachDelimiter = null;
+            delimiters = new HashSet<>();
+
+            for(int i = 0; i < delimiterPart.length(); ++i) {
+                char c = delimiterPart.charAt(i);
+                if(c == '[') {
+                    closingBrace = false;
+                    eachDelimiter = "";
+                    continue;
+                }
+                if(c != ']') {
+                    eachDelimiter+=c;
+                }
+                if(c == ']') {
+                    delimiters.add(eachDelimiter);
+                    closingBrace = true;
+                }
+            }
+            numberPart = givenString.substring(index + 2); //index+1 point to \n
+        }
+        System.out.println(numberPart);
+        for(String curDelimiter: delimiters)
+        {
+            numberPart = numberPart.replace(curDelimiter, DEFAULT_DELIMITER);
+        }
+        String numbers[] = numberPart.split(DEFAULT_DELIMITER);
+        return Arrays.asList(numbers);
     }
 }
