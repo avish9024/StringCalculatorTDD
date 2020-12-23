@@ -25,14 +25,23 @@ public class StringCalculator {
 
     public static int getSum(List<String> numbersList) {
         int sum = 0;
+        String negativeString = "";
         for (String number: numbersList) {
             if (number.length() != 0) {
                 int givenNumber = Integer.parseInt(number);
                 if (givenNumber < 0) {
-                    throw new IllegalArgumentException("Negative numbers are not allowed: " + number);
+                    if(negativeString == "") {
+                        negativeString = number;
+                    } else {
+                        negativeString += ("," + number);
+                    }
+                } else {
+                    sum += givenNumber;
                 }
-                sum += Integer.parseInt(number);
             }
+        }
+        if (negativeString != "") {
+            throw new IllegalArgumentException("Negative numbers are not allowed: " + negativeString);
         }
         return sum;
     }
