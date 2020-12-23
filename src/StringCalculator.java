@@ -27,6 +27,10 @@ public class StringCalculator {
         int sum = 0;
         for (String number: numbersList) {
             if (number.length() != 0) {
+                int givenNumber = Integer.parseInt(number);
+                if (givenNumber < 0) {
+                    throw new IllegalArgumentException("Negative numbers are not allowed: " + number);
+                }
                 sum += Integer.parseInt(number);
             }
         }

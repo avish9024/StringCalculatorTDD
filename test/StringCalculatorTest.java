@@ -28,4 +28,13 @@ public class StringCalculatorTest {
     public void testStringHavingDifferentDelimiter() {
         assertEquals(3, StringCalculator.add("//;\n1;2"));
     }
+
+    @Test
+    public void testStringWithNegativeNumber() {
+        try {
+            StringCalculator.add("-1,2");
+        } catch (IllegalArgumentException e) {
+            assertEquals(e.getMessage(), "Negative numbers are not allowed: -1");
+        }
+    }
 }
