@@ -16,7 +16,7 @@ public class StringCalculator {
             List<String> parsedNumberString = getParsedString(numbers);
             return getSum(parsedNumberString);
         }
-        List<String> numbersList = Arrays.asList(numbers.split(","));
+        List<String> numbersList = Arrays.asList(numbers.split(DEFAULT_DELIMITER));
         return getSum(numbersList);
     }
 
