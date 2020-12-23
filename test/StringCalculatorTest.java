@@ -26,6 +26,11 @@ public class StringCalculatorTest {
 
     @Test
     public void testStringHavingDifferentDelimiter() {
+        assertEquals(3, StringCalculator.add("//;\n1;2"));
+    }
+
+    @Test
+    public void testStringHavingMultipleLengthDelimiter() {
         assertEquals(3, StringCalculator.add("//;;\n1;;2"));
     }
 
