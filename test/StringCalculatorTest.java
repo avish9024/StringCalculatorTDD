@@ -21,7 +21,11 @@ public class StringCalculatorTest {
 
     @Test
     public void testStringHavingNewLines() {
-        StringCalculator calculator = new StringCalculator();
-        assertEquals(6, calculator.add("1\n2,3"));
+        assertEquals(6, StringCalculator.add("1\n2,3"));
+    }
+
+    @Test
+    public void testStringHavingDifferentDelimiter() {
+        assertEquals(3, StringCalculator.add("//;\n1;2"));
     }
 }

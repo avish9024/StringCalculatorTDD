@@ -10,8 +10,13 @@ public class StringCalculator {
             return Integer.parseInt(numbers);
         }
         if (numbers.contains("\n")) {
+            String delimiter = ",";
+            if(numbers.matches("//(.*)\n(.*)")){
+                delimiter = Character.toString(numbers.charAt(2));
+                numbers = numbers.substring(4);
+            }
             List<String> stringListWithoutNewLineAndComma = Arrays
-                    .asList(numbers.replaceAll("\n", ",").split(","));
+                    .asList(numbers.replaceAll("\n", ",").split(delimiter));
             return getSum(stringListWithoutNewLineAndComma);
         }
         List<String> numbersList = Arrays.asList(numbers.split(","));
