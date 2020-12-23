@@ -13,14 +13,7 @@ public class StringCalculator {
             return Integer.parseInt(numbers);
         }
         if (numbers.contains("\n")) {
-            /*if(numbers.matches("//(.*)\n(.*)")){
-                delimiter = getDelimiter(numbers);
-                System.out.println(delimiter);
-                numbers = numbers.substring(2 + delimiter.length());
-            }*/
             List<String> parsedNumberString = getParsedString(numbers);
-           /* List<String> stringListWithoutNewLineAndComma = Arrays
-                    .asList(parsedNumberString.split(DEFAULT_DELIMITER  + "|\n"));*/
             return getSum(parsedNumberString);
         }
         List<String> numbersList = Arrays.asList(numbers.split(","));
@@ -28,7 +21,6 @@ public class StringCalculator {
     }
 
     public static int getSum(List<String> numbersList) {
-        System.out.println(numbersList);
         int sum = 0;
         String negativeString = "";
         for (String number: numbersList) {
@@ -55,9 +47,7 @@ public class StringCalculator {
         String delimiterPart;
         String numberPart = "";
         Set<String> delimiters = new HashSet<>();
-        System.out.println(givenString);
         int index = givenString.lastIndexOf("]");
-        System.out.println(index);
         if (index < 0) {
             int onlyDelimiterIndex = givenString.indexOf("//");
             if(onlyDelimiterIndex == 0) {
@@ -67,7 +57,6 @@ public class StringCalculator {
             }
         } else {
             delimiterPart = givenString.substring(2, index + 1);
-            System.out.println(delimiterPart);
             boolean closingBrace = false;
             String eachDelimiter = null;
             delimiters = new HashSet<>();
@@ -89,7 +78,6 @@ public class StringCalculator {
             }
             numberPart = givenString.substring(index + 2); //index+1 point to \n
         }
-        System.out.println(numberPart);
         for(String curDelimiter: delimiters)
         {
             numberPart = numberPart.replace(curDelimiter, DEFAULT_DELIMITER);
